@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgres://postgres:foxbat@localhost:5432/aitplacement"
+  shadowDatabaseUrl = "postgres://postgres:foxbat@localhost:5432/aitplacement"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+model Users {
+  id String @id @default(uuid())
+  firstName String
+  lastName String?
+  email String @unique
+  password String
+  role String
+  details  String   // uuid - cannot set foreign key since table are varying 
+  verified Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+
+model StudentDetails {
+  id String @id @default(uuid())
+  userId String
+  picture String
+  registrationNo Int
+  branch BRANCH
+  year YEAR
+}
+
+model AdminDetails {
+  id String @id @default(uuid())
+  userId String
+  picture String
+  designation String
+}
+
+model Notices {
+  postID String @id @default(uuid())
+  heading String
+  body String
+  adminID String
+  authorName String
+  tags String[]
+  attachment String[]
+  is_published Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+
+enum YEAR {
+  TE
+  BE
+}
+
+enum ROLE {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+enum BRANCH {
+  COMP
+  IT
+  ENTC
+  MECH
+}

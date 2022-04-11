@@ -2,17 +2,6 @@ import { ChevronDownIcon } from "@heroicons/react/solid";
 import { Fragment, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
-// <label
-// className="block mb-2 text-coolGray-800 font-medium"
-// htmlFor=""
-// >
-// Name
-// </label>
-// <input
-// className=""
-// type="text"
-// placeholder="Firstname Sirname"
-// />
 
 const Dropdown = ({
   buttonname,

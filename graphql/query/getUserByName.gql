@@ -1,0 +1,9 @@
+query getUserByName($name: String!) {
+  getUserByName(name: $name) {
+    firstName,
+    lastName,
+    email,
+    registrationNo,
+    createdAt
+  }
+}
