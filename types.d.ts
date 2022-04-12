@@ -12,6 +12,7 @@ type IDashboardProps = {
 };
 type IToken = {
   accessToken: string;
+  serializedcookie: string;
 };
 
 type ErrorResp = {

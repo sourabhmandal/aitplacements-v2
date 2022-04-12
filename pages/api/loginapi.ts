@@ -6,26 +6,34 @@ import { Users } from "@prisma/client";
 import { ErrorResp, IToken } from "../../types";
 import { generateToken } from "../../utils/_auth/_tokens";
 import { FRONTEND_ROUTES } from "./routes";
+import { serialize } from "cookie";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<IToken | ErrorResp>
+  res: NextApiResponse<{ message: string } | ErrorResp>
 ) {
   try {
     const { email, pass } = JSON.parse(req.body);
-    const user: Users | null = await prisma.users.findFirst({
+    const user = await prisma.users.findFirst({
       where: {
         email: email,
         password: pass,
       },
+      select: {
+        id: true,
+        email: true,
+        verified: true,
+        role: true,
+      },
     });
     if (user?.email == email) {
-      const { accessToken } = generateToken(
-        user?.email || "",
+      const { serializedcookie } = generateToken(
+        user?.id || "",
         user?.role || "",
         user?.verified || false
       );
-      res.send({ accessToken });
+      res.setHeader("set-cookie", serializedcookie);
+      res.send({ message: "logged in" });
     } else {
       res.status(500).json({ error: "login credentials are incorrect" });
     }

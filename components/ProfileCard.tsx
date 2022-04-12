@@ -2,7 +2,7 @@ import { Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 
-function OptionsCard({ title, subtitle, children }: any) {
+function ProfileCard({ title, subtitle, children }: any) {
   return (
     <Paper
       elevation={2}
@@ -31,4 +31,4 @@ function OptionsCard({ title, subtitle, children }: any) {
   );
 }
 
-export default OptionsCard;
+export default ProfileCard;

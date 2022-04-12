@@ -9,9 +9,12 @@ import {
   Tooltip,
   Typography,
   Menu,
+  Button,
 } from "@mui/material";
 import Link from "next/link";
 import React from "react";
+import { useCookies } from "react-cookie";
+import { BACKEND_ROUTES } from "../pages/api/routes";
 
 function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -21,6 +24,13 @@ function Navbar() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const logoutUser = async () => {
+    console.log("logout");
+    await fetch(BACKEND_ROUTES.LOGOUT, {
+      method: "GET",
+    });
   };
   return (
     <section className="bg-white border-b py-2 px-8">
@@ -104,7 +114,7 @@ function Navbar() {
           </Link>
         </MenuItem>
         <Divider />
-        <MenuItem>
+        <MenuItem onClick={logoutUser} color="error">
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

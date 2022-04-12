@@ -15,10 +15,9 @@ function Login() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const router = useRouter();
-  const [cookies, setCookie] = useCookies(["accessToken"]);
 
   useEffect(() => {
-    if (cookies.accessToken) router.push(FRONTEND_ROUTES.DASHBOARD);
+    // router.push(FRONTEND_ROUTES.DASHBOARD);
     return () => {};
   }, []);
 
@@ -36,12 +35,9 @@ function Login() {
     if (data.error) {
       toast.error(data.error);
     }
-    if (data.accessToken) {
+    if (data.message) {
       const now = new Date();
-      toast.success("successfully logged you in");
-      setCookie("accessToken", data.accessToken, {
-        expires: new Date(now.getTime() + 2 * 24 * 60 * 60 * 1000),
-      });
+      toast.success(data.message);
       router.push(FRONTEND_ROUTES.DASHBOARD);
     }
   }

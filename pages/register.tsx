@@ -48,12 +48,11 @@ const Register: NextPage = () => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [showPassword, setshowPassword] = useState<boolean>(false);
-  const [cookies, setCookie] = useCookies(["accessToken"]);
 
   useEffect(() => {
-    //if (cookies.accessToken) router.push(FRONTEND_ROUTES.DASHBOARD);
+    //  router.push(FRONTEND_ROUTES.DASHBOARD);
     return () => {};
-  }, []);
+  }, [router]);
 
   async function sendRegisterCred() {
     const registerapi = fetch(BACKEND_ROUTES.REGISTER, {
@@ -72,15 +71,9 @@ const Register: NextPage = () => {
     const data = await resp.json();
 
     if (data.error) {
-      toast.error(data.error);
-    }
-    if (data.accessToken) {
-      const now = new Date();
-      toast.success("successfully registered");
-      setCookie("accessToken", data.accessToken, {
-        expires: new Date(now.getTime() + 2 * 24 * 60 * 60 * 1000),
-      });
-      router.push(FRONTEND_ROUTES.DASHBOARD);
+      toast.error(data.error.toString());
+    } else {
+      toast.success("Email verification sent");
     }
   }
 

@@ -1,7 +1,7 @@
 import jwt_decode from "jwt-decode";
 
 export const decodeJWT = (token: string) => {
-  return jwt_decode(token);
+  return jwt_decode(token) as { [key: string]: string };
 };
 
 export const verifyJWT = (token: string) => {
